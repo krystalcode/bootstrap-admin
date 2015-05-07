@@ -1,5 +1,5 @@
-name = SASS (source)
-description = Uses the SASS Bootstrap framework source files and must be compiled (not for beginners).
+name = Bootstrap Admin
+description = An administration theme that uses the Bootstrap framework and the Bootstrap base theme.
 core = 7.x
 base theme = bootstrap
 
