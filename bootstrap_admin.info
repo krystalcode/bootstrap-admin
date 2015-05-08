@@ -4,6 +4,16 @@ core = 7.x
 base theme = bootstrap
 
 
+
+;;;;;;;;;;;;;;;;;;;;;
+;; Theme Settings
+;;;;;;;;;;;;;;;;;;;;;
+
+; Container
+; --------------
+settings[bootstrap_fluid_container] = 1
+
+
 ;;;;;;;;;;;;;;;;;;;;;
 ;; Regions
 ;;;;;;;;;;;;;;;;;;;;;
