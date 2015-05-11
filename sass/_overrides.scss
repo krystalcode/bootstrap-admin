@@ -1,0 +1,37 @@
+/**
+ * Rules for Drupal overrides.
+ *
+ * The whole overrides.less file should be ported to SASS and the overrides.css
+ * file should not be included separately. Until then, we add here rules that
+ * require variables to be properly generated.
+ */
+
+// Form elements.
+input.error {
+  color: $state-danger-text;
+  border-color: $state-danger-border;
+}
+
+// Error containers.
+.error {
+  color: $state-danger-text;
+}
+div.error,
+table tr.error {
+  background-color: $state-danger-bg;
+  color: $state-danger-text;
+}
+.form-group.error,
+.form-group.has-error {
+  background: none;
+  label, .control-label {
+    color: $state-danger-text;
+    font-weight: 600;
+  }
+  input, textarea, select, .uneditable-input {
+    color: $input-color;
+  }
+  .help-block, .help-inline {
+    color: $text-muted;
+  }
+}
