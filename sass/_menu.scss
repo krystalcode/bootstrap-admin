@@ -1,0 +1,149 @@
+/**
+ * Rules related to the navbar.
+ */
+
+/**
+ * Rules for the primary navbar.
+ */
+#navbar {
+  &.container-fluid {
+    // Remove the default border radius for the navbar when using the fluid
+    // container.
+    border-radius: 0;
+  }
+}
+
+/**
+ * Display the main menu as a fixed sidebar for medium and large screens.
+ */
+@media (min-width: $screen-md-min) {
+  $sidebar-menu-width: 220px;
+  $sidebar-menu-padding-vertical: $grid-gutter-width / 3;
+  $sidebar-menu-padding-horizontal: $grid-gutter-width / 3 * 2;
+  $sidebar-menu-submenu-padding-horizontal: $grid-gutter-width / 2;
+  $sidebar-menu-border-color: $gray-lighter;
+  $sidebar-menu-color: green;//$brand-primary;
+  $sidebar-menu-bg: lighten(#f8f8f8, 2%);
+  $sidebar-menu-color-active: #fff;
+  $sidebar-menu-bg-active: $sidebar-menu-color;
+
+  /**
+   * The main menu is marked with the primary class. This class shouldn't be
+   * given to any other menu on the page.
+   */
+  .navbar-nav.primary {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: $sidebar-menu-width;
+    height: 100%;
+    padding: $sidebar-menu-padding-horizontal 0;
+    border-right: 1px solid $sidebar-menu-border-color;
+    background: $sidebar-menu-bg;
+    overflow-y: auto;
+
+    /**
+     * Adjustments needed for the first level menu items and their links.
+     */
+    > li {
+      // Disable left floating that is applied by default to navbar-nav first
+      // level li elements.
+      float: none;
+
+      // Separate the Go to the Site link from the rest.
+      // This should always be the last link in the menu.
+      &.goto-site {
+        margin-top: $sidebar-menu-padding-vertical;
+        border-top: 1px dashed $sidebar-menu-color;
+      }
+
+      > a {
+        padding: $sidebar-menu-padding-vertical $sidebar-menu-padding-horizontal;
+        color: $sidebar-menu-color;
+      }
+    }
+
+    /**
+     * Adjust link colors.
+     */
+    li {
+      &.active {
+        > a {
+          color: $sidebar-menu-color-active;
+          background-color: $sidebar-menu-bg-active;
+        }
+      }
+
+      a {
+        color: $sidebar-menu-color;
+      }
+    }
+
+    // Adjust left padding depending on the level that the item is at.
+    li > ul > li {
+      > a {
+         padding-left: $sidebar-menu-submenu-padding-horizontal * 2;
+      }
+
+      > ul > li {
+        > a {
+          padding-left: $sidebar-menu-submenu-padding-horizontal * 3;
+        }
+      }
+    }
+
+    /**
+     * Adjust display (show / hide) of sub-menus depending on whether the class
+     * "open" is present on the parent item. We are using the class "open"
+     * because the "expanded" class is used by Drupal to indicate whether the
+     * item should be rendered with or without its sub-menu. The class "open" is
+     * added to the parent item using javascript.
+     *
+     * @see menu.js
+     */
+    li.expanded > ul {
+      display: none;
+    }
+
+    li.expanded.open > ul {
+      display: block;
+    }
+
+    /**
+     * Adjust display of the expand/collapse icons.
+     */
+    li.expanded > a {
+      .icon-collapse {
+        display: none;
+      }
+    }
+
+    li.expanded.open > a {
+      .icon-collapse {
+        display: inline;
+      }
+      .icon-expand {
+        display: none;
+      }
+    }
+  }
+
+  // Push the navbar, the page header and the main container to the right.
+  #navbar,
+  .page-header-wrapper,
+  .main-container {
+    margin-left: $sidebar-menu-width;
+  }
+
+  /**
+   * Give a bit more padding to main content, adjusting accordingly the navbar
+   * and the page header. We don't apply the ruleset to the container(-fluid)
+   * class so that we don't affect the whole grid system.
+   */
+  #navbar > .container-fluid,
+  .page-header-wrapper,
+  .main-container {
+    padding-left: $sidebar-menu-padding-horizontal;
+    padding-right: $sidebar-menu-padding-horizontal;
+  }
+}
