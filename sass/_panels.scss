@@ -1,0 +1,32 @@
+/**
+ * Rules related to panels.
+ */
+
+/**
+ * The .panel-list-group class should be added in panels that its body is a list
+ * group.
+ */
+.panel-list-group {
+  // Remove the padding of the panel body so that the list group stretches to
+  // fill it in completely.
+  .panel-body {
+    padding: 0;
+  }
+  // Same for the margin at the bottom of the list-group.
+  .list-group {
+    margin-bottom: 0;
+  }
+
+  // Adjust the borders of items so that we don't get double borders.
+  .list-group-item {
+    border-left: 0;
+    border-right: 0;
+
+    &:first-child {
+      border-top: 0;
+    }
+    &:last-child {
+      border-bottom: 0;
+    }
+  }
+}

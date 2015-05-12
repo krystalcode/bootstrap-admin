@@ -63,3 +63,70 @@ function bootstrap_admin_menu_link__management($variables) {
 
   return '<li' . drupal_attributes($element['#attributes']) . '>' . $output . $sub_menu . "</li>\n";
 }
+
+/**
+ * Overrides theme_admin_block().
+ *
+ * Render admin blocks as panels.
+ */
+function bootstrap_admin_admin_block($variables) {
+  $block = $variables['block'];
+
+  // Don't display the block if it has no content to display.
+  if (empty($block['show'])) {
+    return '';
+  }
+
+  $output = '<div class="panel panel-default panel-list-group">';
+
+  if (!empty($block['title'])) {
+    $output .= '<div class="panel-heading">';
+    $output .= '<h3 class="panel-title">' . $block['title'] . '</h3>';
+    $output .= '</div>';
+  }
+
+  if (empty($block['content'])) {
+    $content = $block['description'];
+  }
+  else {
+    $content = $block['content'];
+  }
+
+  $output .= '<div class="panel-body">' . $content . '</div>';
+
+  $output .= '</div>';
+
+  return $output;
+}
+
+/**
+ * Overrides theme_admin_block_content().
+ *
+ * Render admin block content as a list group in both compact and extended mode.
+ */
+function bootstrap_admin_admin_block_content($variables) {
+  $content = $variables['content'];
+
+  if (empty($content)) {
+    return '';
+  }
+
+  $output = system_admin_compact_mode() ? '<div class="list-group compact">' : '<div class="list-group">';
+
+  foreach ($content as $item) {
+    $options = $item['localized_options'] + array('html' => TRUE);
+    $options['attributes']['class'][] = 'list-group-item';
+
+    $list_item = '<h4 class="list-group-item-heading">' . $item['title'] . '</h4>';
+
+    if (isset($item['description']) && !system_admin_compact_mode()) {
+      $list_item .= '<p class="list-group-item-text-description">' . filter_xss_admin($item['description']) . '</p>';
+    }
+
+    $output .= l($list_item, $item['href'], $options);
+  }
+
+  $output .= '</div>';
+
+  return $output;
+}

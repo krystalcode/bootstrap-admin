@@ -67,3 +67,8 @@
 // Bootstrap theme Drupal overrides.
 @import "../../bootstrap/css/overrides.css";
 @import "overrides";
+
+/* Theme specific rules */
+
+// Elements.
+@import "panels";
