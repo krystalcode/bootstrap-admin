@@ -222,3 +222,76 @@ function bootstrap_admin_system_admin_index($variables) {
 
   return $output;
 }
+
+/**
+ * Overrides theme_status_report().
+ *
+ * Render status report items using Bootstrap Grid instead of within a table,
+ * use Bootstrap icons and alert classes.
+ */
+function bootstrap_admin_status_report($variables) {
+  $requirements = $variables['requirements'];
+
+  $severities = array(
+    REQUIREMENT_INFO => array(
+      'title' => t('Info'),
+      'icon' => 'info-sign',
+      'class' => 'alert alert-info',
+    ),
+    REQUIREMENT_OK => array(
+      'title' => t('OK'),
+      'icon' => 'ok',
+      'class' => 'alert alert-success',
+    ),
+    REQUIREMENT_WARNING => array(
+      'title' => t('Warning'),
+      'icon' => 'exclamation-sign',
+      'class' => 'alert alert-warning',
+    ),
+    REQUIREMENT_ERROR => array(
+      'title' => t('Error'),
+      'icon' => 'remove-sign',
+      'class' => 'alert alert-danger',
+    ),
+  );
+
+  // Wrap in a list group.
+  $output = '<ul class="list-group system-status-report">';
+
+  foreach ($requirements as $requirement) {
+    if (!empty($requirement['#type'])) {
+      continue;
+    }
+
+    $severity = $severities[isset($requirement['severity']) ? (int) $requirement['severity'] : REQUIREMENT_OK];
+
+    // Output list group items.
+    $output .= '<li class="list-group-item ' . $severity['class'] . ' status">';
+
+    // We split the title from the value using Bootstrap Grid (columns in a
+    // row). It's better than using a table just for that.
+    $output .= '<div class="row">';
+
+    $output .= '<p class="col-md-6">';
+    $output .= _bootstrap_icon($severity['icon']) . '<span class="element-invisible">' . $severity['title'] . '</span>';
+    $output .= '<span class="status-title">' . $requirement['title'] . '</span>';
+    $output .= '</p>';
+
+    $output .= '<p class="col-md-6">';
+    $output .= '<span class="status-value">' . $requirement['value'] . '</span>';
+    $output .= '</p>';
+
+    if (!empty($requirement['description'])) {
+      $output .= '<p class="col-xs-12">';
+      $output .= '<span colspan="3" class="status-description">' . $requirement['description'] . '</span>';
+      $output .= '</p>';
+    }
+
+    $output .= '</div>';
+    $output .= '</li>';
+  }
+
+  $output .= '</ul>';
+
+  return $output;
+}

@@ -1,0 +1,77 @@
+/**
+ * Rules related to alerts.
+ */
+
+/**
+ * Treat all links inside alert as .alert-link when on hover or focus state.
+ * These rules should be moved to overrides.css.
+ */
+.alert-success a {
+  &:hover,
+  &:focus {
+    color: darken($alert-success-text, 10%);
+  }
+}
+.alert-info a {
+  &:hover,
+  &:focus {
+    color: darken($alert-info-text, 10%);
+  }
+}
+.alert-warning a {
+  &:hover,
+  &:focus {
+    color: darken($alert-warning-text, 10%);
+  }
+}
+.alert-danger a {
+  &:hover,
+  &:focus {
+    color: darken($alert-danger-text, 10%);
+  }
+}
+
+/**
+ * Add some right margin for icons that are the first elements in alerts to
+ * separate them from the text.
+ */
+.alert {
+  .icon:first-child {
+    margin-right: 0.5em;
+  }
+}
+
+/**
+ * When using alerts as list group items, some alert rules are overriden by the
+ * corresponding list group item rules. Override them again here so that they
+ * correspond to the alert rules.
+ */
+.alert.list-group-item {
+  border-radius: 0;
+
+  // Round the first and last items
+  &:first-child {
+    @include border-top-radius($list-group-border-radius);
+  }
+  &:last-child {
+    margin-bottom: 0;
+    @include border-bottom-radius($list-group-border-radius);
+  }
+
+  &.alert-success {
+    background-color: $alert-success-bg;
+    border-color: $alert-success-border;
+  }
+  &.alert-info {
+    background-color: $alert-info-bg;
+    border-color: $alert-info-border;
+  }
+  &.alert-warning {
+    background-color: $alert-warning-bg;
+    border-color: $alert-warning-border;
+  }
+  &.alert-danger {
+    background-color: $alert-danger-bg;
+    border-color: $alert-danger-border;
+  }
+}
